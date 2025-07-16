@@ -3,25 +3,26 @@ class Solution {
     public static int aggressiveCows(int[] stalls, int k) {
         // code here
         Arrays.sort(stalls);
-        
-        for(int i = 1; i <= (stalls[stalls.length - 1] - stalls[0]); i++){
-            if(canwePlaced(stalls, k, i) == true) continue;
-            else return i-1;
+        int ans = 0;
+        for(int i = 1 ; i <= (stalls[stalls.length - 1] - stalls[0]); i++){
+            if(canwePlace(stalls, k, i)){
+                ans = i;
+            } else return ans;
         }
-        return stalls[stalls.length - 1] - stalls[0];
+        return ans;
     }
-    static boolean canwePlaced(int[] stalls, int cows, int distance){
-        int n = stalls.length;
-        int cntCows = 1;
+    private static boolean canwePlace(int[] stalls, int k, int distance){
+        int cnt = 1;
         int last = stalls[0];
+        
         for(int i = 1; i < stalls.length; i++){
-            if(stalls[i] - last >= distance){
-                cntCows++;
+            if((stalls[i] - last) >= distance){
+                cnt ++;
                 last = stalls[i];
-            } 
+            }
             
         }
-        if(cntCows >= cows) return true;
+        if(cnt >= k) return true;
         else return false;
     }
 }
