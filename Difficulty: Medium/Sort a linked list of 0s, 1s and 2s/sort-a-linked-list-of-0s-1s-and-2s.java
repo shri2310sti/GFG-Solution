@@ -11,24 +11,37 @@
 class Solution {
     static Node segregate(Node head) {
         // code here
-        if(head == null) return head;
-        int[] arr = new int[3];
+        if(head == null || head.next == null) return head;
+        
+        Node zeroHead = new Node(-1);
+        Node oneHead = new Node(-1);
+        Node twoHead = new Node(-1);
+        
+        Node zero = zeroHead;
+        Node one = oneHead;
+        Node two = twoHead;
+        
         Node temp = head;
+        
         while(temp != null){
-            arr[temp.data]++;
+            if(temp.data == 0){
+                zero.next = temp;
+                zero = temp;
+            }
+            else if(temp.data == 1){
+                one.next = temp;
+                one = temp;
+            } else{
+                two.next = temp;
+                two = temp;
+            }
             temp = temp.next;
         }
-        temp = head;
-        int i = 0;
-        while(temp != null){
-            if(arr[i] == 0){
-                i++;
-            } else {
-                temp.data = i;
-                arr[i]--;
-                temp = temp.next;
-            }
-        }
+        
+        zero.next = (oneHead.next != null) ? oneHead.next : twoHead.next;
+        one.next = twoHead.next;
+        two.next = null;
+        head = zeroHead.next;
         return head;
     }
 }
