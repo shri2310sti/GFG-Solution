@@ -15,7 +15,6 @@ class Node
 class Solution {
     static Node deleteAllOccurOfX(Node head, int x) {
         // Write your code here
-        if(head == null || (head.next == null && head.data == x)) return null;
         Node temp = head;
         while(temp != null){
             if(temp.prev == null && temp.data == x){
