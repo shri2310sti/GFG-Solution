@@ -15,17 +15,25 @@ class Node
 class Solution {
     static Node deleteAllOccurOfX(Node head, int x) {
         // Write your code here
-        while(head != null && head.data == x){
-            head = head.next;
-        }
-        
+        if(head == null || (head.next == null && head.data == x)) return null;
         Node temp = head;
-        while(temp != null && temp.next != null){
-            if(temp.next.data == x){
-                temp.next = temp.next.next;
+        while(temp != null){
+            if(temp.prev == null && temp.data == x){
+                head = head.next;
+                if(head != null) head.prev = null;
             }
-            else temp = temp.next;
+            else if(temp.next == null && temp.data == x){
+                temp.prev.next = null;
+                temp.next = null;
+            } else{
+                if(temp.data == x){
+                    temp.prev.next = temp.next;
+                    temp.next.prev = temp.prev;
+                }
+            }
+            temp = temp.next;
         }
         return head;
+        
     }
 }
