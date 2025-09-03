@@ -12,19 +12,14 @@ class DLLNode {
 }
 */
 class Solution {
-    public DLLNode reverseDLL(DLLNode head) {
-        if(head == null || head.next == null) return head;
-
-        DLLNode curr = head;
-        DLLNode prev = null;
-        
-        while(curr != null){
-            DLLNode next = curr.next;
-            curr.next = prev;
-            prev = curr;
-            curr.prev = next;
-            curr = curr.prev;
+    public Node reverse(Node head) {
+        while(head!=null){
+            Node pre=head.next;
+            head.next=head.prev;
+            head.prev=pre;
+            if(pre==null)return head;
+            head=pre;
         }
-        return prev;
+        return head;
     }
 }
