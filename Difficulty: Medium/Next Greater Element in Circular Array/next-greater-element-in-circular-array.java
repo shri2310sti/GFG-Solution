@@ -1,33 +1,31 @@
-import java.util.*;
-
 class Solution {
-    public ArrayList<Integer> nextLargerElement(int[] arr) {
+ public ArrayList<Integer> nextGreater(int[] arr) {  
+   
+        if (arr == null || arr.length == 0) return new ArrayList<>();
+
         int n = arr.length;
-        ArrayList<Integer> result = new ArrayList<>(Collections.nCopies(n, -1));
-        Stack<Integer> stack = new Stack<>();
+        int[] res = new int[n];
+        Arrays.fill(res, -1);
 
-        // Traverse twice the array (simulate circular array)
-        for (int i = 2 * n - 1; i >= 0; i--) {
-            int current = arr[i % n];
+        Deque<Integer> stack = new ArrayDeque<>(); 
 
-            // Pop elements from stack which are <= current
-            while (!stack.isEmpty() && stack.peek() <= current) {
-                stack.pop();
+       
+        for (int i = 0; i < 2 * n; i++) {
+            int val = arr[i % n];
+
+            while (!stack.isEmpty() && arr[stack.peek()] < val) {
+                res[stack.pop()] = val;
             }
 
-            // Set result if we're in the first pass
-            if (i < n) {
-                if (!stack.isEmpty()) {
-                    result.set(i, stack.peek());
-                } else {
-                    result.set(i, -1);
-                }
-            }
-
-            // Push current element for future comparisons
-            stack.push(current);
+            
+            if (i < n) stack.push(i);
         }
 
-        return result;
+        ArrayList<Integer> ans = new ArrayList<>(n);
+        for (int x : res) ans.add(x);
+        return ans;
+    
+
     }
 }
+
