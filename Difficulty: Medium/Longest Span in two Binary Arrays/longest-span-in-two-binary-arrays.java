@@ -1,5 +1,6 @@
 class Solution {
-    public int longestCommonSum(int[] a1, int[] a2) {
+    public int equalSumSpan(int[] a1, int[] a2) {
+        // code here
         int n = a1.length;
         int[] diff = new int[n];
         
