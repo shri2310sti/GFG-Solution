@@ -5,15 +5,14 @@ class Solution {
         
         while(n>0 && c<2){
             if(n%2==0){
-                s+="0";//s="0"+s;
+                s+="0";
             }
-            else{
-                s+="1";//s="1"+s;
+            else {
+                s+="1";
                 c++;
             }
             n=n/2;
-        }
-        
+        }    
         return (c==1)?(s.indexOf('1')+1):-1;
     }
 }
